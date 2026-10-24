@@ -34,6 +34,7 @@
             grpSuaCarta = new GroupBox();
             picSuaCarta = new PictureBox();
             grpCartaComputador = new GroupBox();
+            picVersoComputador = new PictureBox();
             picCartaComputador = new PictureBox();
             lblCartaComputador = new Label();
             btnHp = new Button();
@@ -43,15 +44,18 @@
             btnResistencia = new Button();
             lblResultado = new Label();
             btnNovoJogo = new Button();
+            btnProximaRodada = new Button();
             grpSuaCarta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picSuaCarta).BeginInit();
             grpCartaComputador.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picVersoComputador).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCartaComputador).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
             // 
             lblTitulo.Font = new Font("Georgia", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitulo.ForeColor = Color.DarkSlateGray;
             lblTitulo.Location = new Point(335, 28);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(414, 47);
@@ -62,7 +66,7 @@
             // lblPlacar
             // 
             lblPlacar.AutoSize = true;
-            lblPlacar.Location = new Point(462, 193);
+            lblPlacar.Location = new Point(449, 376);
             lblPlacar.Name = "lblPlacar";
             lblPlacar.Size = new Size(173, 19);
             lblPlacar.TabIndex = 1;
@@ -71,7 +75,7 @@
             // lblSuaCarta
             // 
             lblSuaCarta.AutoSize = true;
-            lblSuaCarta.Location = new Point(6, 319);
+            lblSuaCarta.Location = new Point(6, 282);
             lblSuaCarta.Name = "lblSuaCarta";
             lblSuaCarta.Size = new Size(139, 18);
             lblSuaCarta.TabIndex = 2;
@@ -80,7 +84,7 @@
             // 
             // grpSuaCarta
             // 
-            grpSuaCarta.BackColor = Color.BurlyWood;
+            grpSuaCarta.BackColor = Color.FromArgb(64, 64, 64);
             grpSuaCarta.Controls.Add(picSuaCarta);
             grpSuaCarta.Controls.Add(lblSuaCarta);
             grpSuaCarta.Font = new Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -97,13 +101,14 @@
             picSuaCarta.Location = new Point(6, 25);
             picSuaCarta.Name = "picSuaCarta";
             picSuaCarta.Size = new Size(334, 241);
-            picSuaCarta.SizeMode = PictureBoxSizeMode.StretchImage;
+            picSuaCarta.SizeMode = PictureBoxSizeMode.Zoom;
             picSuaCarta.TabIndex = 13;
             picSuaCarta.TabStop = false;
             // 
             // grpCartaComputador
             // 
-            grpCartaComputador.BackColor = Color.BurlyWood;
+            grpCartaComputador.BackColor = Color.FromArgb(64, 64, 64);
+            grpCartaComputador.Controls.Add(picVersoComputador);
             grpCartaComputador.Controls.Add(picCartaComputador);
             grpCartaComputador.Controls.Add(lblCartaComputador);
             grpCartaComputador.Font = new Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -115,11 +120,21 @@
             grpCartaComputador.TabStop = false;
             grpCartaComputador.Text = "Carta do computador";
             // 
+            // picVersoComputador
+            // 
+            picVersoComputador.Location = new Point(6, 25);
+            picVersoComputador.Name = "picVersoComputador";
+            picVersoComputador.Size = new Size(352, 488);
+            picVersoComputador.SizeMode = PictureBoxSizeMode.Zoom;
+            picVersoComputador.TabIndex = 13;
+            picVersoComputador.TabStop = false;
+            // 
             // picCartaComputador
             // 
             picCartaComputador.Location = new Point(6, 25);
             picCartaComputador.Name = "picCartaComputador";
             picCartaComputador.Size = new Size(352, 241);
+            picCartaComputador.SizeMode = PictureBoxSizeMode.Zoom;
             picCartaComputador.TabIndex = 13;
             picCartaComputador.TabStop = false;
             // 
@@ -196,7 +211,8 @@
             // lblResultado
             // 
             lblResultado.AutoSize = true;
-            lblResultado.Location = new Point(449, 758);
+            lblResultado.ForeColor = Color.Yellow;
+            lblResultado.Location = new Point(449, 467);
             lblResultado.Name = "lblResultado";
             lblResultado.Size = new Size(131, 19);
             lblResultado.TabIndex = 11;
@@ -204,20 +220,33 @@
             // 
             // btnNovoJogo
             // 
-            btnNovoJogo.Location = new Point(505, 96);
+            btnNovoJogo.BackColor = Color.DarkCyan;
+            btnNovoJogo.ForeColor = Color.Red;
+            btnNovoJogo.Location = new Point(470, 154);
             btnNovoJogo.Name = "btnNovoJogo";
-            btnNovoJogo.Size = new Size(75, 26);
+            btnNovoJogo.Size = new Size(152, 51);
             btnNovoJogo.TabIndex = 12;
             btnNovoJogo.Text = "Novo Jogo";
-            btnNovoJogo.UseVisualStyleBackColor = true;
+            btnNovoJogo.UseVisualStyleBackColor = false;
             btnNovoJogo.Click += btnNovoJogo_Click;
+            // 
+            // btnProximaRodada
+            // 
+            btnProximaRodada.Enabled = false;
+            btnProximaRodada.Location = new Point(514, 302);
+            btnProximaRodada.Name = "btnProximaRodada";
+            btnProximaRodada.Size = new Size(75, 23);
+            btnProximaRodada.TabIndex = 13;
+            btnProximaRodada.Text = "Próxima Rodada";
+            btnProximaRodada.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Desktop;
+            BackColor = Color.CadetBlue;
             ClientSize = new Size(1084, 806);
+            Controls.Add(btnProximaRodada);
             Controls.Add(btnNovoJogo);
             Controls.Add(lblResultado);
             Controls.Add(btnResistencia);
@@ -239,6 +268,7 @@
             ((System.ComponentModel.ISupportInitialize)picSuaCarta).EndInit();
             grpCartaComputador.ResumeLayout(false);
             grpCartaComputador.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picVersoComputador).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCartaComputador).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -261,5 +291,7 @@
         private Button btnNovoJogo;
         private PictureBox picSuaCarta;
         private PictureBox picCartaComputador;
+        private PictureBox picVersoComputador;
+        private Button btnProximaRodada;
     }
 }

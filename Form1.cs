@@ -18,7 +18,14 @@ namespace Super_Trunfo_2._0
         {
             InitializeComponent();
 
+            picVersoComputador.SizeMode = PictureBoxSizeMode.Zoom;
+            picCartaComputador.SizeMode = PictureBoxSizeMode.Zoom;
+
+            picVersoComputador.Visible = false;
+            picCartaComputador.Visible = false;
+
             btnNovoJogo.Click += btnNovoJogo_Click;
+            btnProximaRodada.Click += btnProximaRodada_Click;
 
             btnHp.Click += (s, e) => JogarRodada("HP");
             btnPoder.Click += (s, e) => JogarRodada("Poder");
@@ -27,6 +34,16 @@ namespace Super_Trunfo_2._0
             btnResistencia.Click += (s, e) => JogarRodada("Resistência");
 
             HabilitarAtributos(false);
+        }
+
+        private void btnProximaRodada_Click(object sender, EventArgs e)
+        {
+            MostrarCartas();
+
+            HabilitarAtributos(true);
+            btnProximaRodada.Enabled = false;
+
+            lblResultado.Text = "Escolha um atributo!";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,6 +58,9 @@ namespace Super_Trunfo_2._0
 
         private void btnNovoJogo_Click(object sender, EventArgs e)
         {
+
+            btnProximaRodada.Enabled = false;
+
             Baralho baralho = new Baralho();
             Carta[] cartas = baralho.getCards();
 
@@ -71,15 +91,14 @@ namespace Super_Trunfo_2._0
             cartaJogador = jogador[0];
             cartaComputador = computador[0];
 
-            // Exibe a imagem da carta do jogador.
-            picSuaCarta.Image = CarregarImagem(
-                cartaJogador.Code + ".png"
-            );
+            picSuaCarta.Image = CarregarImagem(cartaJogador.Code + ".png");
 
-            // Exibe o verso da carta do computador.
-            picCartaComputador.Image = CarregarImagem(
-                "verso.png"
-            );
+            // Antes da rodada, mostra o verso.
+            picVersoComputador.Image = CarregarImagem("verso.png");
+
+            picVersoComputador.Visible = true;
+            picCartaComputador.Visible = false;
+            picVersoComputador.BringToFront();
 
             lblSuaCarta.Text =
                 $"{cartaJogador.Name}\n\n" +
@@ -99,17 +118,20 @@ namespace Super_Trunfo_2._0
 
         private void JogarRodada(string atributo)
         {
-            if (cartaJogador == null ||
-                cartaComputador == null)
+
+            if (cartaJogador == null || cartaComputador == null)
                 return;
 
-            int valorJogador = ObterAtributo(
-                cartaJogador, atributo);
+            int valorJogador = ObterAtributo(cartaJogador, atributo);
 
-            int valorComputador = ObterAtributo(
-                cartaComputador, atributo);
+            int valorComputador = ObterAtributo(cartaComputador, atributo);
+
+            picVersoComputador.Visible = false;
 
             picCartaComputador.Image = CarregarImagem(cartaComputador.Code + ".png");
+
+            picCartaComputador.Visible = true;
+            picCartaComputador.BringToFront();
 
             bool jogadorVenceu;
             bool computadorVenceu;
@@ -155,18 +177,14 @@ namespace Super_Trunfo_2._0
                 jogador.Add(cartaJogador);
                 jogador.Add(cartaComputador);
 
-                lblResultado.Text =
-                    $"Você venceu! {atributo}: " +
-                    $"{valorJogador} x {valorComputador}";
+                lblResultado.Text = $"Você venceu! \n{atributo}\n{valorJogador} x {valorComputador}";
             }
             else if (computadorVenceu)
             {
                 computador.Add(cartaComputador);
                 computador.Add(cartaJogador);
 
-                lblResultado.Text =
-                    $"O computador venceu! {atributo}: " +
-                    $"{valorJogador} x {valorComputador}";
+                lblResultado.Text = $"O computador venceu! \n{atributo}\n{valorJogador} x {valorComputador}";
             }
             else
             {
@@ -174,17 +192,16 @@ namespace Super_Trunfo_2._0
                 jogador.Add(cartaJogador);
                 computador.Add(cartaComputador);
 
-                lblResultado.Text =
-                    $"Empate! {atributo}: " +
-                    $"{valorJogador} x {valorComputador}";
+                lblResultado.Text = $"Empate! \n{atributo}\n{valorJogador} x {valorComputador}";
             }
 
             AtualizarPlacar();
 
-            if (jogador.Count == 0 ||
-                computador.Count == 0)
+            HabilitarAtributos(false);
+
+            if (jogador.Count == 0 || computador.Count == 0)
             {
-                HabilitarAtributos(false);
+                btnProximaRodada.Enabled = false;
 
                 lblResultado.Text =
                     jogador.Count > 0
@@ -194,7 +211,7 @@ namespace Super_Trunfo_2._0
                 return;
             }
 
-            MostrarCartas();
+            btnProximaRodada.Enabled = true;
         }
 
         private int ObterAtributo(
