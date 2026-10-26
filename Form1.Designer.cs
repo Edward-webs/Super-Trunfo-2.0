@@ -30,13 +30,14 @@
         {
             lblTitulo = new Label();
             lblPlacar = new Label();
-            lblSuaCarta = new Label();
+            lblCartaJogador1 = new Label();
             grpSuaCarta = new GroupBox();
-            picSuaCarta = new PictureBox();
+            picVersoJogador1 = new PictureBox();
+            picCartaJogador1 = new PictureBox();
             grpCartaComputador = new GroupBox();
-            picVersoComputador = new PictureBox();
-            picCartaComputador = new PictureBox();
-            lblCartaComputador = new Label();
+            picVersoJogador2 = new PictureBox();
+            picCartaJogador2 = new PictureBox();
+            lblCartaJogador2 = new Label();
             btnHp = new Button();
             btnPoder = new Button();
             btnVelocidade = new Button();
@@ -46,10 +47,11 @@
             btnNovoJogo = new Button();
             btnProximaRodada = new Button();
             grpSuaCarta.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picSuaCarta).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picVersoJogador1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picCartaJogador1).BeginInit();
             grpCartaComputador.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picVersoComputador).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picCartaComputador).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picVersoJogador2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picCartaJogador2).BeginInit();
             SuspendLayout();
             // 
             // lblTitulo
@@ -66,27 +68,28 @@
             // lblPlacar
             // 
             lblPlacar.AutoSize = true;
-            lblPlacar.Location = new Point(449, 376);
+            lblPlacar.Location = new Point(448, 318);
             lblPlacar.Name = "lblPlacar";
-            lblPlacar.Size = new Size(173, 19);
+            lblPlacar.Size = new Size(188, 19);
             lblPlacar.TabIndex = 1;
-            lblPlacar.Text = "Você: 16 | Computador: 16";
+            lblPlacar.Text = "Jogador 1: 16 | Jogador 2: 16";
             // 
-            // lblSuaCarta
+            // lblCartaJogador1
             // 
-            lblSuaCarta.AutoSize = true;
-            lblSuaCarta.Location = new Point(6, 282);
-            lblSuaCarta.Name = "lblSuaCarta";
-            lblSuaCarta.Size = new Size(139, 18);
-            lblSuaCarta.TabIndex = 2;
-            lblSuaCarta.Text = "Nome e atributos";
-            lblSuaCarta.Click += lblSuaCarta_Click;
+            lblCartaJogador1.AutoSize = true;
+            lblCartaJogador1.Location = new Point(6, 282);
+            lblCartaJogador1.Name = "lblCartaJogador1";
+            lblCartaJogador1.Size = new Size(139, 18);
+            lblCartaJogador1.TabIndex = 2;
+            lblCartaJogador1.Text = "Nome e atributos";
+            lblCartaJogador1.Click += lblSuaCarta_Click;
             // 
             // grpSuaCarta
             // 
             grpSuaCarta.BackColor = Color.FromArgb(64, 64, 64);
-            grpSuaCarta.Controls.Add(picSuaCarta);
-            grpSuaCarta.Controls.Add(lblSuaCarta);
+            grpSuaCarta.Controls.Add(picVersoJogador1);
+            grpSuaCarta.Controls.Add(picCartaJogador1);
+            grpSuaCarta.Controls.Add(lblCartaJogador1);
             grpSuaCarta.Font = new Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpSuaCarta.ForeColor = Color.Gold;
             grpSuaCarta.Location = new Point(31, 129);
@@ -94,23 +97,32 @@
             grpSuaCarta.Size = new Size(346, 513);
             grpSuaCarta.TabIndex = 3;
             grpSuaCarta.TabStop = false;
-            grpSuaCarta.Text = "Sua carta";
+            grpSuaCarta.Text = "Carta - Jogador 1";
             // 
-            // picSuaCarta
+            // picVersoJogador1
             // 
-            picSuaCarta.Location = new Point(6, 25);
-            picSuaCarta.Name = "picSuaCarta";
-            picSuaCarta.Size = new Size(334, 241);
-            picSuaCarta.SizeMode = PictureBoxSizeMode.Zoom;
-            picSuaCarta.TabIndex = 13;
-            picSuaCarta.TabStop = false;
+            picVersoJogador1.Location = new Point(6, 25);
+            picVersoJogador1.Name = "picVersoJogador1";
+            picVersoJogador1.Size = new Size(334, 482);
+            picVersoJogador1.SizeMode = PictureBoxSizeMode.Zoom;
+            picVersoJogador1.TabIndex = 14;
+            picVersoJogador1.TabStop = false;
+            // 
+            // picCartaJogador1
+            // 
+            picCartaJogador1.Location = new Point(6, 25);
+            picCartaJogador1.Name = "picCartaJogador1";
+            picCartaJogador1.Size = new Size(334, 241);
+            picCartaJogador1.SizeMode = PictureBoxSizeMode.Zoom;
+            picCartaJogador1.TabIndex = 13;
+            picCartaJogador1.TabStop = false;
             // 
             // grpCartaComputador
             // 
             grpCartaComputador.BackColor = Color.FromArgb(64, 64, 64);
-            grpCartaComputador.Controls.Add(picVersoComputador);
-            grpCartaComputador.Controls.Add(picCartaComputador);
-            grpCartaComputador.Controls.Add(lblCartaComputador);
+            grpCartaComputador.Controls.Add(picVersoJogador2);
+            grpCartaComputador.Controls.Add(picCartaJogador2);
+            grpCartaComputador.Controls.Add(lblCartaJogador2);
             grpCartaComputador.Font = new Font("Georgia", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpCartaComputador.ForeColor = Color.Gold;
             grpCartaComputador.Location = new Point(695, 129);
@@ -118,35 +130,35 @@
             grpCartaComputador.Size = new Size(364, 524);
             grpCartaComputador.TabIndex = 4;
             grpCartaComputador.TabStop = false;
-            grpCartaComputador.Text = "Carta do computador";
+            grpCartaComputador.Text = "Carta - Jogador 2";
             // 
-            // picVersoComputador
+            // picVersoJogador2
             // 
-            picVersoComputador.Location = new Point(6, 25);
-            picVersoComputador.Name = "picVersoComputador";
-            picVersoComputador.Size = new Size(352, 488);
-            picVersoComputador.SizeMode = PictureBoxSizeMode.Zoom;
-            picVersoComputador.TabIndex = 13;
-            picVersoComputador.TabStop = false;
+            picVersoJogador2.Location = new Point(6, 25);
+            picVersoJogador2.Name = "picVersoJogador2";
+            picVersoJogador2.Size = new Size(352, 493);
+            picVersoJogador2.SizeMode = PictureBoxSizeMode.Zoom;
+            picVersoJogador2.TabIndex = 13;
+            picVersoJogador2.TabStop = false;
             // 
-            // picCartaComputador
+            // picCartaJogador2
             // 
-            picCartaComputador.Location = new Point(6, 25);
-            picCartaComputador.Name = "picCartaComputador";
-            picCartaComputador.Size = new Size(352, 241);
-            picCartaComputador.SizeMode = PictureBoxSizeMode.Zoom;
-            picCartaComputador.TabIndex = 13;
-            picCartaComputador.TabStop = false;
+            picCartaJogador2.Location = new Point(6, 25);
+            picCartaJogador2.Name = "picCartaJogador2";
+            picCartaJogador2.Size = new Size(352, 241);
+            picCartaJogador2.SizeMode = PictureBoxSizeMode.Zoom;
+            picCartaJogador2.TabIndex = 13;
+            picCartaJogador2.TabStop = false;
             // 
-            // lblCartaComputador
+            // lblCartaJogador2
             // 
-            lblCartaComputador.AutoSize = true;
-            lblCartaComputador.Location = new Point(6, 319);
-            lblCartaComputador.Name = "lblCartaComputador";
-            lblCartaComputador.Size = new Size(105, 18);
-            lblCartaComputador.TabIndex = 5;
-            lblCartaComputador.Text = "Carta Oculta";
-            lblCartaComputador.Click += lblCartaComputador_Click;
+            lblCartaJogador2.AutoSize = true;
+            lblCartaJogador2.Location = new Point(6, 319);
+            lblCartaJogador2.Name = "lblCartaJogador2";
+            lblCartaJogador2.Size = new Size(105, 18);
+            lblCartaJogador2.TabIndex = 5;
+            lblCartaJogador2.Text = "Carta Oculta";
+            lblCartaJogador2.Click += lblCartaComputador_Click;
             // 
             // btnHp
             // 
@@ -212,11 +224,11 @@
             // 
             lblResultado.AutoSize = true;
             lblResultado.ForeColor = Color.Yellow;
-            lblResultado.Location = new Point(449, 467);
+            lblResultado.Location = new Point(470, 492);
             lblResultado.Name = "lblResultado";
-            lblResultado.Size = new Size(131, 19);
+            lblResultado.Size = new Size(135, 19);
             lblResultado.TabIndex = 11;
-            lblResultado.Text = "Escolha um atributo";
+            lblResultado.Text = "Escolha um atributo!";
             // 
             // btnNovoJogo
             // 
@@ -233,12 +245,13 @@
             // btnProximaRodada
             // 
             btnProximaRodada.Enabled = false;
-            btnProximaRodada.Location = new Point(514, 302);
+            btnProximaRodada.Location = new Point(470, 349);
             btnProximaRodada.Name = "btnProximaRodada";
-            btnProximaRodada.Size = new Size(75, 23);
+            btnProximaRodada.Size = new Size(152, 46);
             btnProximaRodada.TabIndex = 13;
             btnProximaRodada.Text = "Próxima Rodada";
             btnProximaRodada.UseVisualStyleBackColor = true;
+            btnProximaRodada.Click += btnProximaRodada_Click_1;
             // 
             // Form1
             // 
@@ -265,11 +278,12 @@
             Load += Form1_Load;
             grpSuaCarta.ResumeLayout(false);
             grpSuaCarta.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picSuaCarta).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picVersoJogador1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picCartaJogador1).EndInit();
             grpCartaComputador.ResumeLayout(false);
             grpCartaComputador.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picVersoComputador).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picCartaComputador).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picVersoJogador2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picCartaJogador2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,10 +292,10 @@
 
         private Label lblTitulo;
         private Label lblPlacar;
-        private Label lblSuaCarta;
+        private Label lblCartaJogador1;
         private GroupBox grpSuaCarta;
         private GroupBox grpCartaComputador;
-        private Label lblCartaComputador;
+        private Label lblCartaJogador2;
         private Button btnHp;
         private Button btnPoder;
         private Button btnVelocidade;
@@ -289,9 +303,10 @@
         private Button btnResistencia;
         private Label lblResultado;
         private Button btnNovoJogo;
-        private PictureBox picSuaCarta;
-        private PictureBox picCartaComputador;
-        private PictureBox picVersoComputador;
+        private PictureBox picCartaJogador1;
+        private PictureBox picCartaJogador2;
+        private PictureBox picVersoJogador2;
         private Button btnProximaRodada;
+        private PictureBox picVersoJogador1;
     }
 }

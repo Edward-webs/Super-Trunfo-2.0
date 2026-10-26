@@ -6,23 +6,27 @@ namespace Super_Trunfo_2._0
 {
     public partial class Form1 : Form
     {
-        private List<Carta> jogador = new List<Carta>();
-        private List<Carta> computador = new List<Carta>();
+        private List<Carta> jogador1 = new List<Carta>();
+        private List<Carta> jogador2 = new List<Carta>();
 
         private readonly Random random = new Random();
 
-        private Carta cartaJogador;
-        private Carta cartaComputador;
+        private Carta cartaJogador1;
+        private Carta cartaJogador2;
+
+        private int jogadorDaVez = 1;
 
         public Form1()
         {
             InitializeComponent();
 
-            picVersoComputador.SizeMode = PictureBoxSizeMode.Zoom;
-            picCartaComputador.SizeMode = PictureBoxSizeMode.Zoom;
+            AplicarTema();
 
-            picVersoComputador.Visible = false;
-            picCartaComputador.Visible = false;
+            picVersoJogador2.SizeMode = PictureBoxSizeMode.Zoom;
+            picCartaJogador2.SizeMode = PictureBoxSizeMode.Zoom;
+
+            picVersoJogador2.Visible = false;
+            picCartaJogador2.Visible = false;
 
             btnNovoJogo.Click += btnNovoJogo_Click;
             btnProximaRodada.Click += btnProximaRodada_Click;
@@ -39,32 +43,23 @@ namespace Super_Trunfo_2._0
         private void btnProximaRodada_Click(object sender, EventArgs e)
         {
             MostrarCartas();
-
             HabilitarAtributos(true);
             btnProximaRodada.Enabled = false;
-
             lblResultado.Text = "Escolha um atributo!";
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        private void Form1_Load(object sender, EventArgs e){}
 
-        }
-
-        private void lblCartaComputador_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void lblCartaComputador_Click(object sender, EventArgs e){}
 
         private void btnNovoJogo_Click(object sender, EventArgs e)
         {
-
+            jogadorDaVez = 1;
             btnProximaRodada.Enabled = false;
 
             Baralho baralho = new Baralho();
             Carta[] cartas = baralho.getCards();
 
-            // Embaralhar as cartas
             for (int i = cartas.Length - 1; i > 0; i--)
             {
                 int j = random.Next(i + 1);
@@ -74,166 +69,174 @@ namespace Super_Trunfo_2._0
                 cartas[j] = temp;
             }
 
-            jogador = cartas.Take(16).ToList();
-            computador = cartas.Skip(16).Take(16).ToList();
+            jogador1 = cartas.Take(16).ToList();
+            jogador2 = cartas.Skip(16).Take(16).ToList();
 
-            lblResultado.Text = "Escolha um atributo!";
+            lblResultado.Text = "Jogador 1: escolha um atributo!";
+
             HabilitarAtributos(true);
-
             MostrarCartas();
         }
 
         private void MostrarCartas()
         {
-            if (jogador.Count == 0 || computador.Count == 0)
+            if (jogador1.Count == 0 || jogador2.Count == 0)
                 return;
 
-            cartaJogador = jogador[0];
-            cartaComputador = computador[0];
+            cartaJogador1 = jogador1[0];
+            cartaJogador2 = jogador2[0];
 
-            picSuaCarta.Image = CarregarImagem(cartaJogador.Code + ".png");
+            picCartaJogador1.Image = CarregarImagem(cartaJogador1.Code + ".png");
+            picCartaJogador2.Image = CarregarImagem(cartaJogador2.Code + ".png");
+            picVersoJogador1.Image = CarregarImagem("verso.png");
+            picVersoJogador2.Image = CarregarImagem("verso.png");
 
-            // Antes da rodada, mostra o verso.
-            picVersoComputador.Image = CarregarImagem("verso.png");
+            if (jogadorDaVez == 1)
+            {
+                picCartaJogador1.Visible = true;
+                picVersoJogador1.Visible = false;
+                picCartaJogador2.Visible = false;
+                picVersoJogador2.Visible = true;
 
-            picVersoComputador.Visible = true;
-            picCartaComputador.Visible = false;
-            picVersoComputador.BringToFront();
+                lblCartaJogador1.Text =
+                    $"{cartaJogador1.Name}\n\n" +
+                    $"HP: {cartaJogador1.Hp}\n" +
+                    $"Poder: {cartaJogador1.Power}\n" +
+                    $"Velocidade: {cartaJogador1.Speed}\n" +
+                    $"Força: {cartaJogador1.Strength}\n" +
+                    $"Resistência: {cartaJogador1.Resistance}";
 
-            lblSuaCarta.Text =
-                $"{cartaJogador.Name}\n\n" +
-                $"HP: {cartaJogador.Hp}\n" +
-                $"Poder: {cartaJogador.Power}\n" +
-                $"Velocidade: {cartaJogador.Speed}\n" +
-                $"Força: {cartaJogador.Strength}\n" +
-                $"Resistência: {cartaJogador.Resistance}";
+                lblCartaJogador2.Text = "Carta oculta";
+            }
+            else
+            {
+                picCartaJogador1.Visible = false;
+                picVersoJogador1.Visible = true;
+                picCartaJogador2.Visible = true;
+                picVersoJogador2.Visible = false;
 
-            // Os atributos do computador ficam ocultos.
-            lblCartaComputador.Text =
-                "CARTA DO COMPUTADOR\n\n" +
-                "Escolha um atributo para revelar!";
+                lblCartaJogador1.Text = "Carta oculta";
+
+                lblCartaJogador2.Text =
+                    $"{cartaJogador2.Name}\n\n" +
+                    $"HP: {cartaJogador2.Hp}\n" +
+                    $"Poder: {cartaJogador2.Power}\n" +
+                    $"Velocidade: {cartaJogador2.Speed}\n" +
+                    $"Força: {cartaJogador2.Strength}\n" +
+                    $"Resistência: {cartaJogador2.Resistance}";
+            }
+
+            lblResultado.Text = $"Jogador {jogadorDaVez}: escolha um atributo!";
 
             AtualizarPlacar();
+            HabilitarAtributos(true);
+
+            btnProximaRodada.Enabled = false;
         }
 
         private void JogarRodada(string atributo)
         {
-
-            if (cartaJogador == null || cartaComputador == null)
+            if (cartaJogador1 == null || cartaJogador2 == null)
                 return;
 
-            int valorJogador = ObterAtributo(cartaJogador, atributo);
+            int valorJogador1 = ObterAtributo(cartaJogador1, atributo);
+            int valorJogador2 = ObterAtributo(cartaJogador2, atributo);
 
-            int valorComputador = ObterAtributo(cartaComputador, atributo);
+            picCartaJogador1.Visible = true;
+            picVersoJogador1.Visible = false;
+            picCartaJogador2.Visible = true;
+            picVersoJogador2.Visible = false;
 
-            picVersoComputador.Visible = false;
+            lblCartaJogador1.Text =
+                $"{cartaJogador1.Name}\n\n" +
+                $"HP: {cartaJogador1.Hp}\n" +
+                $"Poder: {cartaJogador1.Power}\n" +
+                $"Velocidade: {cartaJogador1.Speed}\n" +
+                $"Força: {cartaJogador1.Strength}\n" +
+                $"Resistência: {cartaJogador1.Resistance}";
 
-            picCartaComputador.Image = CarregarImagem(cartaComputador.Code + ".png");
+            lblCartaJogador2.Text =
+                $"{cartaJogador2.Name}\n\n" +
+                $"HP: {cartaJogador2.Hp}\n" +
+                $"Poder: {cartaJogador2.Power}\n" +
+                $"Velocidade: {cartaJogador2.Speed}\n" +
+                $"Força: {cartaJogador2.Strength}\n" +
+                $"Resistência: {cartaJogador2.Resistance}";
 
-            picCartaComputador.Visible = true;
-            picCartaComputador.BringToFront();
+            bool jogador1Venceu;
+            bool jogador2Venceu;
 
-            bool jogadorVenceu;
-            bool computadorVenceu;
-
-            // Regra especial do Super Trunfo.
-            if (cartaJogador.Supertrunfo &&
-                !cartaComputador.Supertrunfo)
+            if (cartaJogador1.Supertrunfo && !cartaJogador2.Supertrunfo)
             {
-                jogadorVenceu = true;
-                computadorVenceu = false;
+                jogador1Venceu = true;
+                jogador2Venceu = false;
             }
-            else if (cartaComputador.Supertrunfo &&
-                     !cartaJogador.Supertrunfo)
+            else if (cartaJogador2.Supertrunfo && !cartaJogador1.Supertrunfo)
             {
-                jogadorVenceu = false;
-                computadorVenceu = true;
-            }
-            else
-            {
-                jogadorVenceu =
-                    valorJogador > valorComputador;
-
-                computadorVenceu =
-                    valorComputador > valorJogador;
-            }
-
-            // Revela a carta do computador.
-            lblCartaComputador.Text =
-                $"[{cartaComputador.Code}] {cartaComputador.Name}\n\n" +
-                $"HP: {cartaComputador.Hp}\n" +
-                $"Poder: {cartaComputador.Power}\n" +
-                $"Velocidade: {cartaComputador.Speed}\n" +
-                $"Força: {cartaComputador.Strength}\n" +
-                $"Resistência: {cartaComputador.Resistance}";
-
-            // Retira as cartas que estão em disputa.
-            jogador.RemoveAt(0);
-            computador.RemoveAt(0);
-
-            // O vencedor recebe as duas cartas.
-            if (jogadorVenceu)
-            {
-                jogador.Add(cartaJogador);
-                jogador.Add(cartaComputador);
-
-                lblResultado.Text = $"Você venceu! \n{atributo}\n{valorJogador} x {valorComputador}";
-            }
-            else if (computadorVenceu)
-            {
-                computador.Add(cartaComputador);
-                computador.Add(cartaJogador);
-
-                lblResultado.Text = $"O computador venceu! \n{atributo}\n{valorJogador} x {valorComputador}";
+                jogador1Venceu = false;
+                jogador2Venceu = true;
             }
             else
             {
-                // No empate, cada um mantém sua carta.
-                jogador.Add(cartaJogador);
-                computador.Add(cartaComputador);
+                jogador1Venceu = valorJogador1 > valorJogador2;
+                jogador2Venceu = valorJogador2 > valorJogador1;
+            }
 
-                lblResultado.Text = $"Empate! \n{atributo}\n{valorJogador} x {valorComputador}";
+            jogador1.RemoveAt(0);
+            jogador2.RemoveAt(0);
+
+            if (jogador1Venceu)
+            {
+                jogador1.Add(cartaJogador1);
+                jogador2.Add(cartaJogador2);
+
+                lblResultado.Text = $"Jogador 1 venceu!\n" + $"{atributo}: {valorJogador1} x {valorJogador2}";
+            }
+            else if (jogador2Venceu)
+            {
+                jogador2.Add(cartaJogador2);
+                jogador2.Add(cartaJogador1);
+
+                lblResultado.Text = $"Jogador 2 venceu!\n" + $"{atributo}: {valorJogador1} x {valorJogador2}";
+            }
+            else
+            {
+                jogador1.Add(cartaJogador1);
+                jogador2.Add(cartaJogador2);
+
+                lblResultado.Text = $"Empate!\n" + $"{atributo}: {valorJogador1} x {valorJogador2}";
             }
 
             AtualizarPlacar();
-
             HabilitarAtributos(false);
 
-            if (jogador.Count == 0 || computador.Count == 0)
+            if (jogador1.Count == 0 || jogador2.Count == 0)
             {
                 btnProximaRodada.Enabled = false;
-
-                lblResultado.Text =
-                    jogador.Count > 0
-                    ? "Parabéns! Você venceu o jogo!"
-                    : "O computador venceu o jogo!";
+                lblResultado.Text = jogador1.Count > 0 ? "Jogador 1 venceu o jogo!" : "Jogador 2 venceu o jogo!";
 
                 return;
             }
+
+            jogadorDaVez = jogadorDaVez == 1 ? 2 : 1;
 
             btnProximaRodada.Enabled = true;
         }
 
-        private int ObterAtributo(
-            Carta carta, string atributo)
+        private int ObterAtributo(Carta carta, string atributo)
         {
             switch (atributo)
             {
                 case "HP":
                     return carta.Hp;
-
                 case "Poder":
                     return carta.Power;
-
                 case "Velocidade":
                     return carta.Speed;
-
                 case "Força":
                     return carta.Strength;
-
                 case "Resistência":
                     return carta.Resistance;
-
                 default:
                     throw new ArgumentException("Atributo inválido.");
             }
@@ -241,9 +244,7 @@ namespace Super_Trunfo_2._0
 
         private void AtualizarPlacar()
         {
-            lblPlacar.Text =
-                $"Você: {jogador.Count} | " +
-                $"Computador: {computador.Count}";
+            lblPlacar.Text = $"Jogador 1: {jogador1.Count} | " + $"Jogador 2: {jogador2.Count}";
         }
 
         private void HabilitarAtributos(bool habilitar)
@@ -255,10 +256,7 @@ namespace Super_Trunfo_2._0
             btnResistencia.Enabled = habilitar;
         }
 
-        private void lblSuaCarta_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void lblSuaCarta_Click(object sender, EventArgs e){}
 
         private void AplicarTema()
         {
@@ -280,17 +278,13 @@ namespace Super_Trunfo_2._0
             grpSuaCarta.ForeColor = dourado;
             grpCartaComputador.ForeColor = dourado;
 
-            lblSuaCarta.BackColor = painel;
-            lblCartaComputador.BackColor = painel;
+            lblCartaJogador1.BackColor = painel;
+            lblCartaJogador2.BackColor = painel;
 
-            lblSuaCarta.ForeColor = texto;
-            lblCartaComputador.ForeColor = texto;
+            lblCartaJogador1.ForeColor = texto;
+            lblCartaJogador2.ForeColor = texto;
 
-            Button[] botoes =
-            {
-            btnHp, btnPoder, btnVelocidade,
-            btnForca, btnResistencia, btnNovoJogo
-            };
+            Button[] botoes = {btnHp, btnPoder, btnVelocidade, btnForca, btnResistencia, btnNovoJogo, btnProximaRodada};
 
             foreach (Button botao in botoes)
             {
@@ -303,22 +297,13 @@ namespace Super_Trunfo_2._0
             }
         }
 
-
         private Image CarregarImagem(string nomeArquivo)
         {
-            string caminho = Path.Combine(
-                AppContext.BaseDirectory,
-                "Imagens",
-                nomeArquivo
-            );
+            string caminho = Path.Combine(AppContext.BaseDirectory,"Imagens",nomeArquivo);
 
             if (!File.Exists(caminho))
             {
-                MessageBox.Show(
-                    $"Imagem não encontrada:\n{caminho}",
-                    "Erro ao carregar imagem"
-                );
-
+                MessageBox.Show($"Imagem não encontrada:\n{caminho}", "Erro ao carregar imagem");
                 return null;
             }
 
@@ -329,5 +314,9 @@ namespace Super_Trunfo_2._0
             }
         }
 
+        private void btnProximaRodada_Click_1(object sender, EventArgs e)
+        {
+            MostrarCartas();
+        }
     }
 }
