@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Classes\C1.png" />
+    <None Remove="Classes\C2.png" />
+    <None Remove="Classes\C3.png" />
+    <None Remove="Classes\C4.png" />
     <None Remove="Imagens\A1.png" />
     <None Remove="Imagens\A10.png" />
     <None Remove="Imagens\A11.png" />
@@ -51,6 +55,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Imagens\C1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Imagens\A1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
