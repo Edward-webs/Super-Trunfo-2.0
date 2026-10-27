@@ -34,6 +34,10 @@
     <None Remove="Imagens\C2.png" />
     <None Remove="Imagens\C3.png" />
     <None Remove="Imagens\C4.png" />
+    <None Remove="Imagens\C5.png" />
+    <None Remove="Imagens\C6.png" />
+    <None Remove="Imagens\C7.png" />
+    <None Remove="Imagens\C8.png" />
     <None Remove="Imagens\D1.png" />
     <None Remove="Imagens\D2.png" />
     <None Remove="Imagens\D3.png" />
@@ -93,6 +97,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Imagens\B8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Imagens\C8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Imagens\D1.png">
